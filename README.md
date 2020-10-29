@@ -1,1 +1,2 @@
-# thesis_ner_novels
+# Master Thesis: Named Entity Recognition in Novels
+
