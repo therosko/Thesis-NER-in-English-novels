@@ -1,2 +1,0 @@
-The approach I have taken for replicating the experiment is setting up a container with all requirements and used tools and doing the individual steps there. [Todo: upload docker immage once finished]
-* `setup_steps.txt` consists of step by step installation of all necessary tools. Note that some requirements that are already satisfied by parts of the container image have been commented out. In a different setting, they should also be installed. [Work in progress]
