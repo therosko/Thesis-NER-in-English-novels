@@ -26,52 +26,151 @@ current_file["booknlp"].replace('PERSON', 'PER', inplace = True)
 current_file.loc[~current_file["booknlp"].isin(['PER']), "booknlp"] = "O"
 ####### compare to gold standard
 gs_df = pd.read_csv(gs_filepath, sep='\t', quoting=csv.QUOTE_NONE)
-gs_df["gs"].replace('I-PER', 'PER', inplace = True)
-gs_df["gs"].replace('B-PER', 'PER', inplace = True)
-gs_df.loc[~gs_df["gs"].isin(['PER']), "gs"] = "O"
+gs_df.loc[~gs_df["gs"].isin(['I-PER','B-PER']), "gs"] = "O"
 
 
 # merge two dataframes
 # TODO remove temporary change of column name to gs bellow
-current_file = current_file.rename(columns={"originalWord": "original_word", "booknlp": "gs"})
-diff = pd.concat([current_file,gs_df]).drop_duplicates(keep=False)
-diff.head(38)
-diff.tail(30)
+#current_file = current_file.rename(columns={"originalWord": "original_word", "booknlp": "gs"})
+#diff = pd.concat([current_file,gs_df]).drop_duplicates(keep=False)
+#diff.head(38)
+#diff.tail(30)
 
-result = pd.merge(current_file, gs_df, on="index")
+for index, word, ner in current_file.itertuples(index=True):
+    if word != gs_df["original_word"].loc[index]:
+        print("'", word, "' in current is not the same as '", gs_df["original_word"].loc[index], "'in gs")
+        break
 
+# merge the two dataframes
+merged_df = pd.merge(current_file, gs_df, left_index=True, right_index=True)
 
-
-'''
-# Moved to gs_extraction.py
-# The golden standard treats hyphened compound words such as WAISTCOAT-POCKETas one word instead of three separate. We find and split those for the further analysis
-# change column type to object in order to be able to run the untagling of hyphened compound words
-gs_df['original_word'] = gs_df['original_word'].astype('object')
-
-def untangle_hyphened(word):
-    if re.match(r"[a-zA-Z]*-[a-zA-Z]*", word):
-        hyphen_position = word.find('-')
-        #fixed_words = str(word[:hyphen_position]) + ",-," + str(word[(hyphen_position+1):]) # does not work, as single comma entries are later split into two empty strings
-        fixed_words = []
-        fixed_words.append(word[:hyphen_position])
-        fixed_words.append("-")
-        fixed_words.append(word[(hyphen_position+1):])
-        return fixed_words
+# set variables for evaluation
+N_incorrect = 0
+N_correct = 0
+list_incorrect = []
+# hold the lines range of the currently detected named entity
+range_ne = []
+missed_booknlp = 0
+wrong_booknlp = 0
+# double-check that the merge is correct, calculate N_incorrect and N_correct
+for index, original_word_x, booknlp, original_word_y, gs in merged_df.itertuples(index=True):
+    if original_word_x != original_word_y:
+        print ("Mismatch in row ", index, ": ", original_word_x , " is not the same as ", original_word_y)
+    if gs == 'B-PER':
+        if len(range_ne) > 0:
+            for line in range_ne:
+                if merged_df.iloc[line]['booknlp'] == 'PER':
+                    continue
+                else: # if booknlp didn't detect it
+                    missed_booknlp = 1
+            if missed_booknlp == 1:
+                N_incorrect +=1
+                missed_booknlp = 0
+            else:
+                N_correct +=1
+            range_ne = []
+        else:
+            range_ne.append(index)
+    elif gs == 'I-PER':
+        range_ne.append(index)
+    elif gs == 'O':
+        if len(range_ne) > 0:
+            for line in range_ne:
+                if merged_df.iloc[line]['booknlp'] == 'PER':
+                    continue
+                else: # if booknlp didn't detect it
+                    missed_booknlp = 1
+            if missed_booknlp == 1:
+                N_incorrect +=1
+                missed_booknlp = 0
+            else:
+                N_correct +=1
+            range_ne = []
+        else:
+            if booknlp == 'PER':
+                if wrong_booknlp == 0: #first occurence of wrong
+                    wrong_booknlp = 1
+                    range_ne.append(index)
+                else: #wrong_booknlp == 1
+                    range_ne.append(index)
+            else: # booknlp == 'O'
+                if wrong_booknlp == 0:
+                    continue
+                else: #wrong_booknlp == 1
+                    N_incorrect +=1
+                    range_ne = []
+                    wrong_booknlp = 0
     else:
-        print("Warning: " + str(word) + " contains a hypthen, but is not detected (or treated) as a hyphened compound word")
+        print ("Happy little accident in line ", index)
+        break
 
-for index, word, ner in gs_df.itertuples(index=True):
-    if "-" in word:
-        # returns hyphened compound words as list of words (incl. hyphen)
-        fixed_word = untangle_hyphened(word)
-        gs_df.at[index, "original_word"] = fixed_word
+# get the total number of named entites in the gold standard (each NE beginns with B-PER)
+N_existing = merged_df.gs.str.count("B-PER").sum()
 
-# split list values in separate rows
-gs_df = gs_df.assign(original_word=gs_df['original_word']).explode('original_word')
+Precision =  N_correct / (N_correct + N_incorrect)
+Recall = N_correct / N_existing
+F_1 = 1/((1/Precision)+(1/Recall))
+
+
+######################################################################################################
+# Replicate 1 word = 1 NER
+######################################################################################################
 '''
+current_file = pd.read_csv(booknlp_filepath, sep='\t', quoting=csv.QUOTE_NONE)
 
-'''
-# When lists are already in the column
-df = pd.DataFrame({'var1': [['a','b','c'], 'd'], 'var2': [1, 2]})
-df.assign(var1=df['var1']).explode('var1')
+# BookNLP recognises the following NER tags/types (PERSON, NUMBER, DATE, DURATION, MISC, TIME, LOCATION, ORDINAL, MONEY, ORGANIZATION, SET, O)
+# LitBank covers six of the ACE 2005 categories: People (PER), Facilities (FAC), Geo-political entities (GPE), Locations (LOC), Vehicles (VEH), Organizations (ORG)
+
+# Therefore we map the BookNLP entities to those of LitBank in the following way:
+# O stays O and PERSON turns to PER. We ignore rest for character detection (in particular)
+# all_taggers_booknlp_to_litbank = {'PERSON':'PER', 'NUMBER':'', 'DATE': '', 'DURATION': '', 'MISC': '', 'TIME': '', 'LOCATION': 'LOC', 'ORDINAL': '', 'MONEY': '', 'ORGANIZATION': 'ORG', 'SET': '' }
+
+current_file = current_file[['originalWord','ner']]
+current_file = current_file.rename(columns={"originalWord": "original_word", "ner": "booknlp"})
+
+# alternatively convert all PERSON to PER
+current_file["booknlp"].replace('PERSON', 'PER', inplace = True)
+# replace rest of entities with O
+current_file.loc[~current_file["booknlp"].isin(['PER']), "booknlp"] = "O"
+####### compare to gold standard
+gs_df = pd.read_csv(gs_filepath, sep='\t', quoting=csv.QUOTE_NONE)
+gs_df["gs"].replace('I-PER', 'PER', inplace = True)
+gs_df["gs"].replace('B-PER', 'PER', inplace = True)
+gs_df.loc[~gs_df["gs"].isin(['PER']), "gs"] = "O"
+
+for index, word, ner in current_file.itertuples(index=True):
+    if word != gs_df["original_word"].loc[index]:
+        print("'", word, "' in current is not the same as '", gs_df["original_word"].loc[index], "'in gs")
+        break
+
+# merge the two dataframes
+result = pd.merge(current_file, gs_df, left_index=True, right_index=True)
+
+# set variables for evaluation
+N_incorrect = 0
+N_correct = 0
+list_incorrect = []
+# double-check that the merge is correct, calculate N_incorrect and N_correct
+for index, original_word_x, booknlp, original_word_y, gs in result.itertuples(index=True):
+    if original_word_x != original_word_y:
+        print ("Mismatch in row ", index, ": ", original_word_x , " is not the same as ", original_word_y)
+    elif (booknlp == 'PER' and gs == 'O') or (booknlp == 'O' and gs == 'PER'):
+        N_incorrect += 1
+        list_incorrect.append(original_word_x)
+    elif booknlp == 'PER' and gs == 'PER':
+        N_correct += 1
+    elif booknlp == 'O' and gs == 'O':
+        continue
+    else:
+        print("Semantical mistake")
+        break
+
+# get the total number of named entites in the gold standard
+
+N_existing = result.gs.str.count("PER").sum()
+Precision =  N_correct / (N_correct + N_incorrect)
+Recall = N_correct / N_existing
+
+result.loc[result['booknlp'] == 'PER']
+result.loc[result['gs'] == 'PER']
 '''

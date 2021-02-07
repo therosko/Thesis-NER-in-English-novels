@@ -8,3 +8,21 @@ Flags:
 * -tok : file path to save processed tokens to (or read them from, if it already exists) 
 
 BookNLP recognises the following NER tags/types **(PERSON, NUMBER, DATE, DURATION, MISC, TIME, LOCATION, ORDINAL, MONEY, ORGANIZATION, SET, O)**
+
+Column meaning in `.token` files:
+1. Paragraph id
+2. Sentence id
+3. Token id
+4. Byte start
+5. Byte end
+6. Whitespace following the token (useful for pretty-printing the original text)
+7. Syntactic head id (-1 for the sentence root)
+8. Original token
+9. Normalized token (for quotes etc.)
+10. Lemma
+11. Penn Treebank POS tag
+12. NER tag (PERSON, NUMBER, DATE, DURATION, MISC, TIME, LOCATION, ORDINAL, MONEY, ORGANIZATION, SET, O)
+13. Stanford basic dependency label
+14. Quotation label (begin quote, inside quote, outside quote)
+15. Character id (all coreferent tokens share the same character id)
+16. Supersense tag (https://wordnet.princeton.edu/documentation/lexnames5wn)
