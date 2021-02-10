@@ -95,7 +95,8 @@ COPY requirements.txt ./
 # pip3 uninstall pkg-resources==0.0.0
 RUN python3 -m pip install --upgrade pip && \
     python3 -m pip  --no-cache-dir install --upgrade pip && \
-    python3 -m pip --no-cache-dir install --ignore-installed -U -r requirements.txt
+    python3 -m pip --no-cache-dir install --ignore-installed -U -r requirements.txt && \
+    python3 -m pip install 'pandas==1.1.5'
 
 ## -- added Local PIP installation bin to PATH
 ENV PATH=${PATH}:${HOME}/.local/bin
