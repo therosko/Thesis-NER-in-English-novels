@@ -2,6 +2,8 @@
 
 `./runjava novels/BookNLP -doc data/originalTexts/dickens.oliver.pg730.txt -printHTML -p data/output/dickens -tok data/tokens/dickens.oliver.tokens -f`
 
+`./runjava novels/BookNLP -doc data/litbank/original/76_adventures_of_huckleberry_finn.txt -printHTML -p data/output/ -tok data/tokens/76_adventures_of_huckleberry_finn.tokens -f`
+
 Flags:
 
 * -doc : original text to process, *those are plain texts in format `.txt`*
