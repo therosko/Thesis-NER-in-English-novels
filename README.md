@@ -2,6 +2,10 @@
 
 
 ## Status Updates
+* flattened hyphened words in gold standard (uses old version of Stanford CoreNLP)
+* derive differences between booknlp and gold standard, extract false positives and false negatives
+
+--
 * use data from [Litbank](https://github.com/dbamman/litbank)
 
 raw texts: `/mnt/data/litbank/entities/brat/*.txt`
@@ -9,7 +13,6 @@ raw texts: `/mnt/data/litbank/entities/brat/*.txt`
 annotated files: `/mnt/data/litbank/entities/*.tsv` *we are using the entity and only the first level of the annotation (column 1, column 2)*
 
 Note: The entity annotation layer of LitBank covers six of the ACE 2005 categories in text: People (PER), Facilities (FAC), Geo-political entities (GPE), Locations (LOC), Vehicles (VEH), Organizations (ORG)
-
 
 * `get_setup.sh` steps to be executed within the container. Script can also be called as a whole from inside the container. 
 * `init_steps.sh` holds the steps that need to be taken in order to get the required setup. Requirements: [Docker installed](https://docs.docker.com/get-docker/)
