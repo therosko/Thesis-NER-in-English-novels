@@ -1,0 +1,8 @@
+paragraphId	sentenceID	tokenId	beginOffset	endOffset	whitespaceAfter	headTokenId	originalWord	normalizedWord	lemma	pos	ner	    deprel	inQuotation	characterId	supersense
+0	        0	        0	    0	        7	        S	            2	        CHAPTER	        CHAPTER	        chapter	NN	MISC	nn	    O	        -1	        B-noun.communication
+0	        0	        5	    33	        38	        S	            6	        Leigh	        Leigh	        Leigh	NNP	PERSON	nn	    O	        -1	        B-noun.person
+0	        0	        6	    39	        45		                    3	        Little	        Little	        Little	NNP	PERSON	conj	O	        -1	        I-noun.person
+
+1	        2	        14	    84	        90	        S	            15	        OLIVER	        OLIVER	        OLIVER	NNP	PERSON	nn	    O	         0	        O
+
+7	        3	        111	    613	        619		                    115	        MASTER	        MASTER	        master	NN	O	    poss	O	        -1	        B-noun.person
