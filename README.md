@@ -15,10 +15,25 @@ annotated files: `/mnt/data/litbank/entities/*.tsv` *we are using the entity and
 Note: The entity annotation layer of LitBank covers six of the ACE 2005 categories in text: People (PER), Facilities (FAC), Geo-political entities (GPE), Locations (LOC), Vehicles (VEH), Organizations (ORG)
 
 * `get_setup.sh` steps to be executed within the container. Script can also be called as a whole from inside the container. 
-* `init_steps.sh` holds the steps that need to be taken in order to get the required setup. Requirements: [Docker installed](https://docs.docker.com/get-docker/)
-* Setup Docker container that fulfills all (current) requirements (Dockerfile, requirements.txt)
 
-The setup can be optimally used in two ways (both describen in `init_steps.sh`): 
-* (preffered by me) mount a volume to the container when running (`docker container run -v <path to your folder>:/mnt -it ner /bin/bash`) and develop over VSCode (if working on a remote server, [connect to remote server over SSH ](https://code.visualstudio.com/docs/remote/ssh) ), push and pull from the same local folder
-* work directly inside the container and clone this repository in the `/mnt/Git` folder (not permanent, must be repeated every time you run the container)
 
+---------
+## How to use
+
+#### Setup and requirements
+The standard setup uses [Docker](https://docs.docker.com/get-docker/). Once installed follow the steps:
+1. create a folder (e.g. `mkdir v_mnt`), which will be mounted to the container
+2. inside of this folder create a directory called Git `mkdir Git`
+3. clone this repository inside of the Git directory `git clone <repo_path_here> .` (note: don't forget the dot in the end ;)
+4. navigate to the cloned repository `cd Git`. The Dockerfile and requirements.txt are located there.
+5. build the docker image `sudo docker build -t ner .`
+6. run container with the mounted volume (any of the following works):
+* directly from the command line `docker container run -v <path to  folder>/v_mnt:/mnt -it ner /bin/bash`
+* (preffered by me) mount a volume to the container when running (`docker container run -v <path to folder>/v_mnt:/mnt -it ner /bin/bash`) and develop over VSCode (if working on a remote server, [connect to remote server over SSH ](https://code.visualstudio.com/docs/remote/ssh) ) (push and pull from the same local folder)
+
+#### Next steps:
+The following steps are available in the `get_setup.sh`. Those should be executed within the container. You can run all in one by calling the script itself.
+* Data: 
+    * We use annotated data from [Litbank](https://github.com/dbamman/litbank) Last commit: *a371cd678701fc98371355b328a1a6c4b58508a3*
+* Tools:
+    * [BookNLP](https://github.com/dbamman/book-nlp) Last commit: *f58fbdbb018ba8bf2d836b764d0426afa0f7bc8c*. This version of BookNLP uses Stanford CoreNLP v.4.1.0 . 
