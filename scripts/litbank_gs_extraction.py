@@ -7,15 +7,11 @@
 
 import os
 import csv
-# extracting filename from filepath (works with all os file path standards)
-#import ntpath
 # import own script
 import modules.hyphens
 
-
 path_to_annotated_files = "/mnt/data/litbank/entities/tsv"
 gs_output_dir = "/mnt/data/gold_standard"
-
 
 for filename in os.listdir(path_to_annotated_files):
     if filename.endswith(".tsv"): 
@@ -32,19 +28,3 @@ for filename in os.listdir(path_to_annotated_files):
         current_file.to_csv(outpath, sep='\t', index=False, encoding='utf-8', quoting=csv.QUOTE_NONE)
         # clean up (not mandatory)
         current_file.drop(current_file.index, inplace=True)
-
-
-
-
-'''
-####### For analysis of one file with pandas this works
-import pandas as pd
-import csv 
-
-filename = "/mnt/data/litbank/entities/tsv/12677_personality_plus_some_experiences_of_emma_mcchesney_and_her_son_jock_brat.tsv"
-
-current_file = pd.read_csv(filename, sep='\t', quoting=csv.QUOTE_NONE, names=["entity", "gs", "lvl2", "lvl3", "lvl4", "rest"]) 
-current_file
-
-current_file[["entity","gs"]].to_csv("/mnt/data/gold_standard/test.tsv", sep='\t', index=False, encoding='utf-8', quoting=csv.QUOTE_NONE)
-'''
