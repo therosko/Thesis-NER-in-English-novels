@@ -16,22 +16,22 @@
 # O stays O and PERSON turns to PER. We ignore rest for character detection (in particular)
 ###########################################################################################
 
-
 import pandas as pd
 import csv
+import sys
 # import own script
-import modules.hyphens
+from modules.hyphens import *
 
-#### book example Alice in wonderland
-#booknlp_filepath = "/mnt/book-nlp/data/tokens/alice.tokens"
-#gs_filepath = "/mnt/data/gold_standard/11_alices_adventures_in_wonderland_brat.tsv"
 #### book example Evelina
 #booknlp_filepath = "/mnt/book-nlp/data/tokens/evelina.tokens"
 #gs_filepath = "/mnt/data/gold_standard/6053_evelina_or_the_history_of_a_young_ladys_entrance_into_the_world_brat.tsv"
-#### book example Sherlock
-booknlp_filepath = "/mnt/book-nlp/data/tokens/huckleberry.tokens"
-gs_filepath = "/mnt/data/gold_standard/76_adventures_of_huckleberry_finn_brat.tsv"
+passed_variable = sys.argv[1]
+booknlp_filepath = "/mnt/book-nlp/data/tokens/" + str(passed_variable) + ".tokens"
+gs_filepath = "/mnt/data/gold_standard/" + str(passed_variable) + "_brat.tsv"
 
+############################
+# get current annotated book
+############################
 current_file = pd.read_csv(booknlp_filepath, sep='\t', quoting=csv.QUOTE_NONE, usecols=["originalWord","ner"])
 current_file = current_file.rename(columns={"originalWord": "original_word", "ner": "booknlp"})
 # alternatively convert all PERSON to PER
@@ -44,7 +44,9 @@ current_file = correct_hyphened(current_file)
 current_file = current_file.reset_index()
 del current_file['index']
 
-####### compare to gold standard
+############################
+# get gold standard
+############################
 gs_df = pd.read_csv(gs_filepath, sep='\t', quoting=csv.QUOTE_NONE)
 gs_df.loc[~gs_df["gs"].isin(['I-PER','B-PER']), "gs"] = "O"
 
@@ -54,7 +56,7 @@ try:
         if word != gs_df["original_word"].loc[index]:
             print("Position ", index, " '", word, "' in current is not the same as '", gs_df["original_word"].loc[index], "'in gs")
             break
-# some original texts are longer than the annotated files, we stop the comparisson at that length
+#Note: some original texts are longer than the annotated files, we stop the comparisson at that length
 except KeyError:
     print("Reached end of annotated file. Cropped currect_file.")
     print("Last word ", word)
@@ -62,8 +64,11 @@ except KeyError:
     pass
 
 # merge the two dataframes
-merged_df = pd.merge(current_file, gs_df, left_index=True, right_index=True)
 
+merged_df = pd.merge(current_file, gs_df, left_index=True, right_index=True)
+############################
+# run evaluation
+############################
 # hold the lines range of the currently detected named entity
 range_ne = []
 # set booleans to keep of track of false positives/negatives of entities spreading over multiple rows
@@ -144,17 +149,24 @@ for index, original_word_x, booknlp, original_word_y, gs in merged_df.itertuples
         print ("Semantical mistake in analysing line ", index)
         break
 
+############################
+# calculate metrics
+############################
 # get the total number of named entites in the gold standard (each NE beginns with B-PER)
 N_existing = merged_df.gs.str.count("B-PER").sum()
 
 if ( len(list_false_positives) + len(list_false_negatives) + len(list_correct) ) != N_existing:
-    raise Error ("Mismatch in total number of entities! Must be a semantic error")
+    raise ValueError ("Mismatch in total number of entities! Must be a semantic error")
 #todo remove check after all books have been tested.
 
 Precision =  len(list_correct) / (len(list_correct) + len(list_false_positives)) #true positives / (true positives + false positives)
 Recall = len(list_correct) / (len(list_correct) + len(list_false_negatives)) #true positives / (true positives + false negatives)
 F_1 = 1/((1/Precision)+(1/Recall))
-#todo store results in a tsv
+
+#write reults to file (file with header is created by evaluate_booknlp.sh)
+results = str(passed_variable) + "," + str(round(Precision, 4)) + "," + str(round(Recall, 4)) + "," + str(round(F_1, 4)) + "\n"
+with open('/mnt/Git/results/booknlp_evaluation.csv','a') as f:
+    f.write(results)
 
 def get_word(list_of_indices):
     word_list = []
@@ -162,6 +174,18 @@ def get_word(list_of_indices):
         word_list.append(merged_df.iloc[index]['original_word_x'])
     return word_list
 
+#writin false positives and false negatives to csv
+with open('/mnt/Git/results/booknlp_false_positive.csv','a') as f:
+    for entity in list_false_positives:
+        incorrect = str(passed_variable) + "," + str(entity) + "," + str(get_word(entity)) + "\n"
+        f.write(incorrect)
+
+with open('/mnt/Git/results/booknlp_false_negative.csv','a') as f:
+    for entity in list_false_negatives:
+        incorrect = str(passed_variable) + "," + str(entity) + "," + str(get_word(entity)) + "\n"
+        f.write(incorrect)
+
+'''
 # extract incorrect observations
 incorrect=pd.DataFrame(columns=['index_list', 'word_list', 'false'])
 for entity in list_false_negatives:
@@ -176,9 +200,8 @@ correct=pd.DataFrame(columns=['index_list', 'word_list', 'false'])
 for entity in list_correct:
     correct = correct.append({'index_list': entity, 'word_list': get_word(entity), 'false': 'negative'}, ignore_index=True)
 correct.to_csv("check_correct_detection_Alice.tsv", sep='\t', index=False, encoding='utf-8', quoting=csv.QUOTE_NONE)
-
+'''
 # TODO: run the same for another book!
-#todo store results in a tsv
 ######################################################################################################
 # Replicate 1 word = 1 NER
 ######################################################################################################
