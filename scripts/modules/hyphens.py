@@ -69,4 +69,10 @@ def correct_hyphened(df):
             df.at[index, "original_word"] = fixed_word
     # split list values in separate rows
     df = df.assign(original_word=df['original_word']).explode('original_word')
+    df = df.reset_index(drop=True)
+    for index, word, ner in df.itertuples(index=True):
+        #only for gs files; if used for others, adapt
+        if word == "-" and ner == "B-PER":
+            df.at[index, "gs"] = "I-PER"
+            df.at[index+1, "gs"] = "I-PER"
     return df
