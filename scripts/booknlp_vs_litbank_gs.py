@@ -1,5 +1,5 @@
 ###########################################################################################
-# This script reads in the gold standard (output of gs_extraction.py) and compares it to
+# This script reads in the gold standard (output of litbank_gs_extraction.py) and compares it to
 # the .token files created by booknlp
 #
 # Output:
@@ -26,8 +26,8 @@ from modules.hyphens import *
 #booknlp_filepath = "/mnt/book-nlp/data/tokens/evelina.tokens"
 #gs_filepath = "/mnt/data/gold_standard/6053_evelina_or_the_history_of_a_young_ladys_entrance_into_the_world_brat.tsv"
 passed_variable = sys.argv[1]
-booknlp_filepath = "/mnt/book-nlp/data/tokens/" + str(passed_variable) + ".tokens"
-gs_filepath = "/mnt/data/gold_standard/" + str(passed_variable) + "_brat.tsv"
+booknlp_filepath = "/mnt/book-nlp/data/tokens/litbank/" + str(passed_variable) + ".tokens"
+gs_filepath = "/mnt/data/gold_standard/litbank/" + str(passed_variable) + "_brat.tsv"
 
 ############################
 # get current annotated book
@@ -59,13 +59,13 @@ try:
 #Note: some original texts are longer than the annotated files, we stop the comparisson at that length
 except KeyError:
     print("Reached end of annotated file. Cropped currect_file.")
-    print("Last word ", word)
+    print("Last word ", word, " in line ", index)
     current_file = current_file.truncate(after=index-1)
     pass
 
 # merge the two dataframes
-
 merged_df = pd.merge(current_file, gs_df, left_index=True, right_index=True)
+
 ############################
 # run evaluation
 ############################
@@ -98,11 +98,13 @@ for index, original_word_x, booknlp, original_word_y, gs in merged_df.itertuples
                 else:
                     list_correct.append(range_ne)
                 range_ne = []
+                range_ne.append(index)
                 continue
             elif false_positive_booknlp == True: # if the mistake is a false positive
                 list_false_positives.append(range_ne)
                 range_ne = []
                 false_positive_booknlp = False
+                range_ne.append(index)
                 continue
         else:
             range_ne.append(index)
@@ -111,6 +113,9 @@ for index, original_word_x, booknlp, original_word_y, gs in merged_df.itertuples
     elif gs == 'O':
         if booknlp == 'PER':
             if false_positive_booknlp == False: #first occurence of wrong
+                if len(range_ne) > 0 and false_negative_booknlp == False: # there was a correct detection immediatelly before
+                    list_correct.append(range_ne)
+                    range_ne = []
                 false_positive_booknlp = True
                 range_ne.append(index)
                 continue
@@ -154,18 +159,35 @@ for index, original_word_x, booknlp, original_word_y, gs in merged_df.itertuples
 ############################
 # get the total number of named entites in the gold standard (each NE beginns with B-PER)
 N_existing = merged_df.gs.str.count("B-PER").sum()
+'''
+N_existing
+len(list_false_negatives)
+len(list_correct)
+merged_df.loc[merged_df['gs'] == 'B-PER'].head(30)
+merged_df.loc[merged_df['gs'] == 'B-PER'].tail(35)
+'''
 
-if ( len(list_false_positives) + len(list_false_negatives) + len(list_correct) ) != N_existing:
+if ( len(list_false_negatives) + len(list_correct) ) != N_existing:
     raise ValueError ("Mismatch in total number of entities! Must be a semantic error")
 #todo remove check after all books have been tested.
 
-Precision =  len(list_correct) / (len(list_correct) + len(list_false_positives)) #true positives / (true positives + false positives)
-Recall = len(list_correct) / (len(list_correct) + len(list_false_negatives)) #true positives / (true positives + false negatives)
-F_1 = 1/((1/Precision)+(1/Recall))
+# handling zero division error taken from: https://github.com/dice-group/gerbil/wiki/Precision,-Recall-and-F1-measure
+if len(list_correct) == 0 and len(list_false_positives) == 0 and len(list_false_negatives) == 0:
+    F_1 = 1
+    Precision = 1
+    Recall = 0
+elif len(list_correct) == 0 and (len(list_false_positives) > 0 or len(list_false_negatives) > 0):
+    F_1 = 0
+    Precision = 0
+    Recall = 0
+else:
+    Precision =  len(list_correct) / (len(list_correct) + len(list_false_positives)) #true positives / (true positives + false positives)
+    Recall = len(list_correct) / (len(list_correct) + len(list_false_negatives)) #true positives / (true positives + false negatives)
+    F_1 = 1/((1/Precision)+(1/Recall))
 
 #write reults to file (file with header is created by evaluate_booknlp.sh)
 results = str(passed_variable) + "," + str(round(Precision, 4)) + "," + str(round(Recall, 4)) + "," + str(round(F_1, 4)) + "\n"
-with open('/mnt/Git/results/booknlp_evaluation.csv','a') as f:
+with open('/mnt/Git/results/litbank/booknlp_litbank_evaluation.csv','a') as f:
     f.write(results)
 
 def get_word(list_of_indices):
@@ -175,12 +197,12 @@ def get_word(list_of_indices):
     return word_list
 
 #writin false positives and false negatives to csv
-with open('/mnt/Git/results/booknlp_false_positive.csv','a') as f:
+with open('/mnt/Git/results/litbank/booknlp_litbank_false_positive.csv','a') as f:
     for entity in list_false_positives:
         incorrect = str(passed_variable) + "," + str(entity) + "," + str(get_word(entity)) + "\n"
         f.write(incorrect)
 
-with open('/mnt/Git/results/booknlp_false_negative.csv','a') as f:
+with open('/mnt/Git/results/litbank/booknlp_litbank_false_negative.csv','a') as f:
     for entity in list_false_negatives:
         incorrect = str(passed_variable) + "," + str(entity) + "," + str(get_word(entity)) + "\n"
         f.write(incorrect)
