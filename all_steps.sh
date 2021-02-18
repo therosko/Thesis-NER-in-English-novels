@@ -4,16 +4,12 @@
 scripts/get_setup.sh
 
 
+# run tool over Oliver Twist (already available in the repository) if you want to do a test run
+#./runjava novels/BookNLP -doc data/originalTexts/dickens.oliver.pg730.txt -printHTML -p data/output/dickens -tok data/tokens/dickens.oliver.tokens -f
 
+#mkdir /mnt/Git/results
+# run all litbank books over BookNLP
+scripts/evaluate_booknlp.sh
 
-
-####################todo 
-#https://stackoverflow.com/questions/14155669/call-python-script-from-bash-with-argument
-#To execute a python script in a bash script you need to call the same command that you would within a terminal. For instance
-python3 python_script.py var1 var2
-
-#To access these variables within python you will need
-import sys
-print sys.argv[0] # prints python_script.py
-print sys.argv[1] # prints var1
-print sys.argv[2] # prints var2
+# run all litbank books over Dekker et al.
+scripts/evaluate_dekkeretal.sh
