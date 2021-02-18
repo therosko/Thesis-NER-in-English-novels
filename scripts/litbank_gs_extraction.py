@@ -12,7 +12,7 @@ import pandas as pd
 from modules.hyphens import *
 
 path_to_annotated_files = "/mnt/data/litbank/entities/tsv"
-gs_output_dir = "/mnt/data/gold_standard"
+gs_output_dir = "/mnt/data/gold_standard/litbank"
 
 for filename in os.listdir(path_to_annotated_files):
     if filename.endswith(".tsv"): 
