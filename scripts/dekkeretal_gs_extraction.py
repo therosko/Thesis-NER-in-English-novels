@@ -10,6 +10,7 @@ import csv
 import pandas as pd
 # import own script
 from modules.hyphens import *
+from modules.patch_encoding_errors import *
 
 path_to_annotated_files = "/mnt/data/dekker_et_al/dekker_et_al_annotated"
 gs_output_dir = "/mnt/data/gold_standard/dekker_et_al"
@@ -29,10 +30,12 @@ for filename in os.listdir(path_to_annotated_files):
 
         # The golden standard treats hyphened compound words such as WAISTCOAT-POCKET as one word instead of three separate. We find and split those for the further analysis
         current_file = correct_hyphened(current_file)
+        # patch encoding issues
+        current_file = patch_encoding(current_file)
 
         # write only first two columns (entity and first level of annotation) to a specified folder 
         outpath = gs_output_dir + "/" + filename
-        current_file.to_csv(outpath, sep='\t', index=False, encoding='utf-8', quoting=csv.QUOTE_NONE)
+        current_file.to_csv(outpath, sep=' ', index=False, encoding='utf-8', quoting=csv.QUOTE_NONE)
         # clean up (not mandatory)
         current_file.drop(current_file.index, inplace=True)
 
