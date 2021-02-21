@@ -26,8 +26,8 @@ echo "book_title, precision_booknlp, recall_booknlp, f1_booknlp" >> /mnt/Git/res
 echo "book_title, index_list, word_list" >> /mnt/Git/results/litbank/booknlp_litbank_false_positive.csv
 echo "book_title, index_list, word_list" >> /mnt/Git/results/litbank/booknlp_litbank_false_negative.csv
 
-echo "\e[30;48;5;45m INFO: Comparing BookNLP Litbank annotation to Litbank gold standard \e[0m"
-for filename in /mnt/data/tokens/litbank/*; do
+echo -e "\e[30;48;5;45m INFO: Comparing BookNLP Litbank annotation to Litbank gold standard \e[0m"
+for filename in /mnt/book-nlp/data/tokens/litbank/*.tokens; do
     bookname=$(basename -- "$filename")
     echo -e "\e[30;48;5;45m INFO: Evaluating ${bookname%.*} \e[0m"
     python3 /mnt/Git/scripts/booknlp_vs_litbank_gs.py ${bookname%.*}
