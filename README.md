@@ -1,5 +1,6 @@
 ## Master Thesis: Named Entity Recognition in Novels
 
+Note to self: run with `docker container run -v /home/ivanova/NER/v_mnt:/mnt -it ner /bin/bash`
 
 ## Status Updates
 * flattened hyphened words in gold standard (uses old version of Stanford CoreNLP)
