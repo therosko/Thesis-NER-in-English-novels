@@ -1,4 +1,4 @@
-###########################################################################################
+#####################################################################################################################
 # This script reads in the gold standard (output of litbank_gs_extraction.py) and compares it to
 # the .token files created by booknlp
 #
@@ -14,7 +14,7 @@
 #
 # Therefore we map the BookNLP entities to those of LitBank in the following way:
 # O stays O and PERSON turns to PER. We ignore rest for character detection (in particular)
-###########################################################################################
+#####################################################################################################################
 
 import pandas as pd
 import csv
@@ -154,76 +154,16 @@ for index, original_word_x, booknlp, original_word_y, gs in merged_df.itertuples
         print ("Semantical mistake in analysing line ", index)
         break
 
-############################
-# calculate metrics
-############################
-# get the total number of named entites in the gold standard (each NE beginns with B-PER)
-N_existing = merged_df.gs.str.count("B-PER").sum()
-'''
-N_existing
-len(list_false_negatives)
-len(list_correct)
-merged_df.loc[merged_df['gs'] == 'B-PER'].head(30)
-merged_df.loc[merged_df['gs'] == 'B-PER'].tail(35)
-'''
+###########################################
+# get evaluation metrics and save to files
+###########################################
 
-if ( len(list_false_negatives) + len(list_correct) ) != N_existing:
-    raise ValueError ("Mismatch in total number of entities! Must be a semantic error")
-#todo remove check after all books have been tested.
+path_evaluation = '/mnt/Git/results/litbank/booknlp_litbank_evaluation.csv'
+path_fp = '/mnt/Git/results/litbank/booknlp_litbank_false_positive.csv'
+path_fn = '/mnt/Git/results/litbank/booknlp_litbank_false_negative.csv'
 
-# handling zero division error taken from: https://github.com/dice-group/gerbil/wiki/Precision,-Recall-and-F1-measure
-if len(list_correct) == 0 and len(list_false_positives) == 0 and len(list_false_negatives) == 0:
-    F_1 = 1
-    Precision = 1
-    Recall = 0
-elif len(list_correct) == 0 and (len(list_false_positives) > 0 or len(list_false_negatives) > 0):
-    F_1 = 0
-    Precision = 0
-    Recall = 0
-else:
-    Precision =  len(list_correct) / (len(list_correct) + len(list_false_positives)) #true positives / (true positives + false positives)
-    Recall = len(list_correct) / (len(list_correct) + len(list_false_negatives)) #true positives / (true positives + false negatives)
-    F_1 = 1/((1/Precision)+(1/Recall))
+get_metrics(merged_df, list_correct, list_false_positives, list_false_negatives, path_evaluation, path_fp, path_fn, passed_variable)
 
-#write reults to file (file with header is created by evaluate_booknlp.sh)
-results = str(passed_variable) + "," + str(round(Precision, 4)) + "," + str(round(Recall, 4)) + "," + str(round(F_1, 4)) + "\n"
-with open('/mnt/Git/results/litbank/booknlp_litbank_evaluation.csv','a') as f:
-    f.write(results)
-
-def get_word(list_of_indices):
-    word_list = []
-    for index in list_of_indices:
-        word_list.append(merged_df.iloc[index]['original_word_x'])
-    return word_list
-
-#writin false positives and false negatives to csv
-with open('/mnt/Git/results/litbank/booknlp_litbank_false_positive.csv','a') as f:
-    for entity in list_false_positives:
-        incorrect = str(passed_variable) + "," + str(entity) + "," + str(get_word(entity)) + "\n"
-        f.write(incorrect)
-
-with open('/mnt/Git/results/litbank/booknlp_litbank_false_negative.csv','a') as f:
-    for entity in list_false_negatives:
-        incorrect = str(passed_variable) + "," + str(entity) + "," + str(get_word(entity)) + "\n"
-        f.write(incorrect)
-
-'''
-# extract incorrect observations
-incorrect=pd.DataFrame(columns=['index_list', 'word_list', 'false'])
-for entity in list_false_negatives:
-    incorrect = incorrect.append({'index_list': entity, 'word_list': get_word(entity), 'false': 'negative'}, ignore_index=True)
-
-for entity in list_false_positives:
-    incorrect = incorrect.append({'index_list': entity, 'word_list': get_word(entity), 'false': 'positive'}, ignore_index=True)
-#incorrect.to_csv("compare_booknlp_to_gs_Huckleberry.tsv", sep='\t', index=False, encoding='utf-8', quoting=csv.QUOTE_NONE)
-
-# extract correct observations for testing
-correct=pd.DataFrame(columns=['index_list', 'word_list', 'false'])
-for entity in list_correct:
-    correct = correct.append({'index_list': entity, 'word_list': get_word(entity), 'false': 'negative'}, ignore_index=True)
-correct.to_csv("check_correct_detection_Alice.tsv", sep='\t', index=False, encoding='utf-8', quoting=csv.QUOTE_NONE)
-'''
-# TODO: run the same for another book!
 ######################################################################################################
 # Replicate 1 word = 1 NER
 ######################################################################################################
