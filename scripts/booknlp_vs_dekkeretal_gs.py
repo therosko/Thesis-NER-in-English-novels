@@ -1,4 +1,4 @@
-###########################################################################################
+##########################################################################################################
 # This script reads in the gold standard (output of dekkeretal_gs_extraction.py) and compares it to
 # the .token files created by booknlp
 #
@@ -13,35 +13,18 @@
 #
 # Therefore we map the BookNLP entities to those of Dekker et al. in the following way:
 # O stays O and PERSON turns to PER. We ignore rest for character detection (in particular)
-###########################################################################################
+##########################################################################################################
 
 import pandas as pd
 import csv
 import sys
 # import own script
 from modules.hyphens import *
+from modules.calculate_metrics import *
 
 passed_variable = sys.argv[1]
 booknlp_filepath = "/mnt/book-nlp/data/tokens/dekkeretal/" + str(passed_variable) + ".tokens"
 gs_filepath = "/mnt/data/gold_standard/dekker_et_al/" + str(passed_variable) + ".gs"
-#### book example
-booknlp_filepath = "/mnt/book-nlp/data/tokens/dekkeretal/1984.tokens"
-gs_filepath = "/mnt/data/dekker_et_al/dekker_et_al_annotated/1984.gs"
-
-booknlp_filepath = "/mnt/book-nlp/data/tokens/dekkeretal/AliceInWonderland.tokens"
-gs_filepath = "/mnt/data/dekker_et_al/dekker_et_al_annotated/AliceInWonderland.gs"
-
-booknlp_filepath = "/mnt/book-nlp/data/tokens/dekkeretal/DavidCopperfield.tokens"
-gs_filepath = "/mnt/data/dekker_et_al/dekker_et_al_annotated/DavidCopperfield.gs"
-
-booknlp_filepath = "/mnt/book-nlp/data/tokens/dekkeretal/MobyDick.tokens"
-gs_filepath = "/mnt/data/dekker_et_al/dekker_et_al_annotated/MobyDick.gs"
-
-booknlp_filepath = "/mnt/book-nlp/data/tokens/dekkeretal/Dracula.tokens"
-gs_filepath = "/mnt/data/dekker_et_al/dekker_et_al_annotated/Dracula.gs"
-
-booknlp_filepath = "/mnt/book-nlp/data/tokens/dekkeretal/Frankenstein.tokens"
-gs_filepath = "/mnt/data/dekker_et_al/dekker_et_al_annotated/Frankenstein.gs"
 
 ############################
 # get current annotated book
@@ -62,59 +45,12 @@ del current_file['index']
 ############################
 # get gold standard
 ############################
-#gs_df = pd.read_csv(gs_filepath, sep='\t', quoting=csv.QUOTE_NONE)
-
-#TODO remove later temp single case
-gs_df = pd.read_csv(gs_filepath, sep=' ', quoting=csv.QUOTE_NONE, usecols=[0,1], names=["original_word", "gs"])
+gs_df = pd.read_csv(gs_filepath, sep=' ', quoting=csv.QUOTE_NONE, usecols=["original_word", "gs"])
 gs_df = correct_hyphened(gs_df)
-#TODO end
 
 gs_df.loc[~gs_df["gs"].isin(['I-PERSON']), "gs"] = "O"
 
 #Note that both files contain LRB, RRB, LSB, RSB
-
-#TODO split words, when necessary (e.g. didnt -> did, nt)
-gs_df['original_word'] = gs_df['original_word'].astype('object')
-for index, word, ner in gs_df.itertuples(index=True):
-    if word == "didnt":
-        # returns hyphened compound words as list of words (incl. hyphen)
-        fixed_word = ['did','nt']
-        gs_df.at[index, "original_word"] = fixed_word
-    elif word == "aint":
-        fixed_word = ['ai','nt']
-        gs_df.at[index, "original_word"] = fixed_word
-    elif word == "dont":
-        fixed_word = ['do','nt']
-        gs_df.at[index, "original_word"] = fixed_word
-    #Alice in Wonderland
-    elif word == "Maâ€™am":
-        fixed_word = ['Maâ','€','™', 'am']
-        gs_df.at[index, "original_word"] = fixed_word
-    elif word == "``'":
-        fixed_word = ["``","'"]
-        gs_df.at[index, "original_word"] = fixed_word
-    elif word == "```":
-        fixed_word = ["``","`"]
-        gs_df.at[index, "original_word"] = fixed_word
-    elif word == "'''":
-        fixed_word = ["'","''"]
-        gs_df.at[index, "original_word"] = fixed_word
-    #David Copperfield
-    elif word == "oâ€™clock":
-        fixed_word = ['oâ','€','™', 'clock']
-        gs_df.at[index, "original_word"] = fixed_word
-    elif word == "maâ€™am":
-        fixed_word = ['maâ','€','™', 'am']
-        gs_df.at[index, "original_word"] = fixed_word
-    #Dracula
-    elif word == "calÃ¨che":
-        fixed_word = ['calÃ','¨','che']
-        gs_df.at[index, "original_word"] = fixed_word
-    
-
-# split list values in separate rows
-gs_df = gs_df.assign(original_word=gs_df['original_word']).explode('original_word')
-gs_df = gs_df.reset_index(drop=True)
 
 # compare if the output file and the gold standard are the same
 try:
@@ -202,27 +138,13 @@ for index, original_word_x, booknlp, original_word_y, gs in merged_df.itertuples
         # add error handling in case of a mistake
         print ("Semantical mistake in analysing line ", index)
         break
-#merged_df.loc[merged_df['booknlp'] == 'PER']
 
+###########################################
+# get evaluation metrics and save to files
+###########################################
 
-############################
-# calculate metrics
-############################
+path_evaluation = '/mnt/Git/results/dekkeretal/booknlp_dekkeretal_evaluation.csv'
+path_fp = '/mnt/Git/results/dekkeretal/booknlp_dekkeretal_false_positive.csv'
+path_fn = '/mnt/Git/results/dekkeretal/booknlp_dekkeretal_false_negative.csv'
 
-# handling zero division error taken from: https://github.com/dice-group/gerbil/wiki/Precision,-Recall-and-F1-measure
-if len(list_correct) == 0 and len(list_false_positives) == 0 and len(list_false_negatives) == 0:
-    F_1 = 1
-    Precision = 1
-    Recall = 0
-elif len(list_correct) == 0 and (len(list_false_positives) > 0 or len(list_false_negatives) > 0):
-    F_1 = 0
-    Precision = 0
-    Recall = 0
-else:
-    Precision =  len(list_correct) / (len(list_correct) + len(list_false_positives)) #true positives / (true positives + false positives)
-    Recall = len(list_correct) / (len(list_correct) + len(list_false_negatives)) #true positives / (true positives + false negatives)
-    F_1 = 1/((1/Precision)+(1/Recall))
-
-Precision
-Recall
-F_1
+get_metrics(merged_df, list_correct, list_false_positives, list_false_negatives, path_evaluation, path_fp, path_fn, passed_variable)
