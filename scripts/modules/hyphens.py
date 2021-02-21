@@ -48,7 +48,7 @@ def untangle_hyphened(word):
         fixed_words.append("-")
         fixed_words.append(word[(hyphen_position+1):])
         return fixed_words
-    elif word == "-" or word == "--" or word == "----":
+    elif word in ['-LRB-', '-RRB-', '-LSB-', '-RSB-','-','--','----']:
         return word
     else:
         print("Warning: " + str(word) + " contains a hypthen, but is not detected (or treated) as a hyphened compound word")
