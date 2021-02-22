@@ -8,8 +8,11 @@ scripts/get_setup.sh
 #./runjava novels/BookNLP -doc data/originalTexts/dickens.oliver.pg730.txt -printHTML -p data/output/dickens -tok data/tokens/dickens.oliver.tokens -f
 
 #mkdir /mnt/Git/results
-# run all litbank books over BookNLP
+# run all LitBank books over BookNLP
 scripts/evaluate_booknlp.sh
 
-# run all litbank books over Dekker et al.
+# run all Dekker et al. over BookNLP
 scripts/evaluate_dekkeretal.sh
+
+# run all overlapping between Dekker et al. and LitBank over BookNLP
+scripts/evaluate_overlap.sh
