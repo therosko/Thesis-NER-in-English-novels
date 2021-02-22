@@ -1,8 +1,8 @@
-################################################################################################################################
+#########################################################################################################################################
 # calculate metrics for evaluation of tool vs. gold standard
-# Input: merged_df, list_correct, list_false_positives, list_false_negatives, path_evaluation, path_fp, path_fn
+# Input: merged_df, list_correct, list_false_positives, list_false_negatives, path_evaluation, path_fp, path_fn, filename/passed_variable
 # Output: appended rows to evaluation, false positives, and false negatives files
-################################################################################################################################
+#########################################################################################################################################
 
 def get_metrics(merged_df, list_correct, list_false_positives, list_false_negatives, path_evaluation, path_fp, path_fn, passed_variable):
     # handling zero division error taken from: https://github.com/dice-group/gerbil/wiki/Precision,-Recall-and-F1-measure
