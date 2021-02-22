@@ -6,3 +6,11 @@ paragraphId	sentenceID	tokenId	beginOffset	endOffset	whitespaceAfter	headTokenId
 1	        2	        14	    84	        90	        S	            15	        OLIVER	        OLIVER	        OLIVER	NNP	PERSON	nn	    O	         0	        O
 
 7	        3	        111	    613	        619		                    115	        MASTER	        MASTER	        master	NN	O	    poss	O	        -1	        B-noun.person
+
+
+26	67	2302	11271	11272		2305	(	(	(	-LRB-	O	advmod	O	-1	O
+26	67	2303	11272	11277		2305	Susan	Susan	Susan	NNP	PERSON	nsubj	O	58	O
+26	67	2304	11277	11278	S	2305	,	,	,	,	O	punct	O	-1	O
+26	67	2305	11279	11283	S	-1	take	take	take	VB	O	null	O	-1	O
+26	67	2306	11284	11290	S	2305	Oliver	Oliver	Oliver	NNP	PERSON	dobj	O	0	B-noun.person
+26	67	2307	11291	11294	S	2305	and	and	and	CC	O	cc	O	-1	O
