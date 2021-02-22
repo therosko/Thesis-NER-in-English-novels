@@ -308,12 +308,3 @@ path_fp = '/mnt/Git/results/overlap/booknlp_litbank_false_positive.csv'
 path_fn = '/mnt/Git/results/overlap/booknlp_litbank_false_negative.csv'
 
 get_metrics(merged_booknlp_litbank, list_correct, list_false_positives, list_false_negatives, path_evaluation, path_fp, path_fn, passed_variable)
-
-
-
-'''
--LRB- in dekker == "(" in LitBank
--RRB- in dekker == ")" in LitBank
--LSB- in dekker == "[" in LitBank
--RSB- in dekker == "]" in LitBank
-'''
