@@ -67,7 +67,7 @@ gs_d = pd.read_csv(dekker_filepath, sep=' ', quoting=csv.QUOTE_NONE, usecols=[0,
 gs_d = correct_hyphened(gs_d)
 
 gs_d.loc[~gs_d["gs"].isin(['I-PERSON']), "gs"] = "O"
-
+'''
 #Note that both files contain LRB, RRB, LSB, RSB
 
 # compare if the output file and the gold standard are the same
@@ -76,6 +76,34 @@ try:
         if word != gs_d["original_word"].loc[index]:
             print("Position ", index, " '", word, "' in current is not the same as '", gs_d["original_word"].loc[index], "'in gs")
             break
+#Note: some original texts are longer than the annotated files, we stop the comparisson at that length
+except KeyError:
+    print("Reached end of annotated file. Cropped currect_file.")
+    print("Last word ", word, " in line ", index)
+    current_file = current_file.truncate(after=index-1)
+    pass
+'''
+
+# compare if the output file and the gold standard are the same
+try:
+    for index, word, ner in current_file.itertuples(index=True):
+        if word != gs_d["original_word"].loc[index]:
+            if (word == '(' and gs_d["original_word"].loc[index] == '-LRB-') or (word == ')' and gs_d["original_word"].loc[index] == '-RRB-') or (word == '[' and gs_d["original_word"].loc[index] == '-LSB-') or (word == ']' and gs_d["original_word"].loc[index] == '-RSB-'):
+                pass
+            elif (word in ["‘","-","' \" '",'"',"“",'-',"”","'",",","’"]) and (gs_d["original_word"].loc[index] in ['`',"``","--","''","'",'--']):
+                pass
+            elif (word == "—") and (gs_d["original_word"].loc[index] == '--'):
+                #print("Warning ", index, " '", word, "' in current is not the same as '", gs_d["original_word"].loc[index], "'in gs")
+                pass
+            elif (word == "'t" and gs_d["original_word"].loc[index] == "`") or (word == "is" and gs_d["original_word"].loc[index] == "tis") or (word == "honorable" and gs_d["original_word"].loc[index] == "honourable") or (word == "honor" and gs_d["original_word"].loc[index] == "honour"):
+                pass
+            elif (re.match(r"[a-zA-Z]*’[a-zA-Z]+", word)) and (re.match(r"[a-zA-Z]*'[a-zA-Z]+", gs_d["original_word"].loc[index])):
+                pass
+            elif (re.match(r"[a-zA-Z]*'[a-zA-Z]+", word)) and (re.match(r"[a-zA-Z]*’[a-zA-Z]+", gs_d["original_word"].loc[index])):
+                pass
+            else:
+                print("Position ", index, " '", word, "' in current is not the same as '", gs_d["original_word"].loc[index], "'in gs")
+                break
 #Note: some original texts are longer than the annotated files, we stop the comparisson at that length
 except KeyError:
     print("Reached end of annotated file. Cropped currect_file.")
@@ -100,9 +128,25 @@ list_false_positives = []
 list_correct = []
 
 for index, original_word_x, booknlp, original_word_y, gs in merged_booknlp_dekkeretal.itertuples(index=True):
+    '''
     if original_word_x != original_word_y:
         print ("Mismatch in row ", index, ": ", original_word_x , " is not the same as ", original_word_y)
         break
+    '''
+    if original_word_x != original_word_y:
+        if (original_word_y == '-LRB-' and original_word_x == '(') or (original_word_y == '-RRB-' and original_word_x == ')') or (original_word_y == '-LSB-' and original_word_x == '[') or (original_word_y == '-RSB-' and original_word_x == ']'):
+            pass
+        elif (original_word_y in ['`',"``","--","''","'",'--']) and (original_word_x in ["‘","' \" '",'"',"“",'-',"”","'",",","’","—","_"]):
+            pass
+        elif (re.match(r"[a-zA-Z]*'[a-zA-Z]+", original_word_y)) and (re.match(r"[a-zA-Z]*’[a-zA-Z]+", original_word_x)):
+            pass
+        elif (re.match(r"[a-zA-Z]*’[a-zA-Z]+", original_word_y)) and (re.match(r"[a-zA-Z]*'[a-zA-Z]+", original_word_x)):
+            pass
+        elif (original_word_y == "`" and original_word_x == "'t") or (original_word_y == "tis" and original_word_x == "is") or (original_word_y == "honourable" and original_word_x == "honorable") or (original_word_y == "honour" and original_word_x == "honor"):
+            pass
+        else:
+            print ("Mismatch in row ", index, ": ", original_word_x , " is not the same as ", original_word_y)
+            break
     if gs == 'I-PERSON':
         if false_positive_booknlp == True:
             list_false_positives.append(range_ne)
@@ -167,7 +211,6 @@ path_fn = '/mnt/Git/results/overlap/booknlp_dekkeretal_false_negative.csv'
 #todo outcomment in the end
 get_metrics(merged_booknlp_dekkeretal, list_correct, list_false_positives, list_false_negatives, path_evaluation, path_fp, path_fn, passed_variable)
 
-
 ########################################################################################################################################################################
 
 
@@ -181,17 +224,8 @@ gs_lb.loc[~gs_lb["gs"].isin(['I-PER','B-PER']), "gs"] = "O"
 try:
     for index, word, ner in current_file.itertuples(index=True):
         if word != gs_lb["original_word"].loc[index]:
-            if (word == '-LRB-' and gs_lb["original_word"].loc[index] == '(') or (word == '-RRB-' and gs_lb["original_word"].loc[index] == ')') or (word == '-LSB-' and gs_lb["original_word"].loc[index] == '[') or (word == '-RSB-' and gs_lb["original_word"].loc[index] == ']'):
-                pass
-            elif (word in ['`',"``","--","''","'",'--']) and (gs_lb["original_word"].loc[index] in ["‘","' \" '",'"',"“",'-',"”","'",",","’","-"]):
-                pass
-            elif (word == "`" and gs_lb["original_word"].loc[index] == "'t") or (word == "tis" and gs_lb["original_word"].loc[index] == "is") or (word == "honourable" and gs_lb["original_word"].loc[index] == "honorable") or (word == "honour" and gs_lb["original_word"].loc[index] == "honor"):
-                pass
-            elif (re.match(r"[a-zA-Z]*'[a-zA-Z]+", word)) and (re.match(r"[a-zA-Z]*’[a-zA-Z]+", gs_lb["original_word"].loc[index])):
-                pass
-            else:
-                print("Position ", index, " '", word, "' in current is not the same as '", gs_lb["original_word"].loc[index], "'in gs")
-                break
+            print("Position ", index, " '", word, "' in current is not the same as '", gs_lb["original_word"].loc[index], "'in gs")
+            break
 #Note: some original texts are longer than the annotated files, we stop the comparisson at that length
 except KeyError:
     print("Reached end of annotated file. Cropped currect_file.")
@@ -218,17 +252,8 @@ list_correct = []
 # double-check that the merge is correct, calculate incorrect and correct by using lists
 for index, original_word_x, booknlp, original_word_y, gs in merged_booknlp_litbank.itertuples(index=True):
     if original_word_x != original_word_y:
-        if (original_word_x == '-LRB-' and original_word_y == '(') or (original_word_x == '-RRB-' and original_word_y == ')') or (original_word_x == '-LSB-' and original_word_y == '[') or (original_word_x == '-RSB-' and original_word_y == ']'):
-            pass
-        elif (original_word_x in ['`',"``","--","''","'",'--']) and (original_word_y in ["‘","' \" '",'"',"“",'-',"”","'",",","’","—","_"]):
-            pass
-        elif (re.match(r"[a-zA-Z]*'[a-zA-Z]+", original_word_x)) and (re.match(r"[a-zA-Z]*’[a-zA-Z]+", original_word_y)):
-            pass
-        elif (original_word_x == "`" and original_word_y == "'t") or (original_word_x == "tis" and original_word_y == "is") or (original_word_x == "honourable" and original_word_y == "honorable") or (original_word_x == "honour" and original_word_y == "honor"):
-            pass
-        else:
-            print ("Mismatch in row ", index, ": ", original_word_x , " is not the same as ", original_word_y)
-            break
+        print ("Mismatch in row ", index, ": ", original_word_x , " is not the same as ", original_word_y)
+        break
     if gs == 'B-PER':
         if len(range_ne) > 0:
             if false_positive_booknlp == False: #make sure that the mistake is not a false positive, but instead the end of a gold standard entity
