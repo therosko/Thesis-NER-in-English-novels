@@ -39,7 +39,7 @@ Certain manual changes have been done to the individual books:
     ```
     ?	O
     --	O
-    Water	O           <- missing -- after this row in LitBank. Added with ner O.
+    Water	O           <- missing -- after this row in LitBank. Removed from Dekker et al.
     there	O
     is	O
     not	O
@@ -49,9 +49,15 @@ Certain manual changes have been done to the individual books:
     ```
     their	B-FAC
     huge	I-FAC
-    bakehouses	I-FAC       <- exploded to bake-houses in LitBank (as per Dekker et al.)
+    bakehouses	I-FAC       <- bake - houses in Dekker et al. - collapsed 
     the	I-FAC
     pyramids	I-FAC
+    ```
+    ```
+    into O
+    the O
+    fore-castle	O       <- one word in Dekker et al. - split
+    , O
     ```
     * Different sentenses (As the extra two tokens in Litbank are not marked as an entity, we remove those.)
         ```
@@ -150,6 +156,6 @@ Adapted (all three) Dekker et al. to Litbank in order to not add anything, but o
     have	O
     g.	O
     p.	O
-    i.	O           <- i. split in two tokens
+    i.	O           <- i. split in two tokens in Dekker et al. -> collapsed
 ```
 * Vanity Fair: none

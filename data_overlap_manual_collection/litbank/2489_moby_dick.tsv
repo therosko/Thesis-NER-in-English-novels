@@ -898,7 +898,6 @@ wanting	O
 ?	O
 --	O
 Water	O
---	O
 there	O
 is	O
 not	O
@@ -1449,9 +1448,7 @@ creatures	O
 in	O
 their	B-FAC
 huge	I-FAC
-bake	I-FAC
--	I-FAC
-houses	I-FAC
+bakehouses	I-FAC
 the	I-FAC
 pyramids	I-FAC
 .	O
@@ -1479,7 +1476,9 @@ plumb	O
 down	O
 into	O
 the	O
-forecastle	O
+fore	O
+-	O
+castle	O
 ,	O
 aloft	O
 there	O

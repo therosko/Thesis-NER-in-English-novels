@@ -1538,8 +1538,7 @@ you O
 have O
 g. O
 p. O
-i O
-. O
+i. O
 He O
 's O
 up O
