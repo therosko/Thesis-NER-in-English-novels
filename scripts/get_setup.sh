@@ -21,7 +21,7 @@ python3 /mnt/Git/scripts/litbank_gs_extraction.py
 
 cd /mnt/data
 # get data from Dekker et al.
-echo "Cloning Dekker et al. (raw and annotated dataset collection)"
+echo -e "\e[30;48;5;45m Cloning Dekker et al. (raw and annotated dataset collection) \e[0m"
 git clone https://github.com/Niels-Dekker/Out-with-the-Old-and-in-with-the-Novel.git
 # move relevant (raw and annotated) files and clean up
 mkdir /mnt/data/dekker_et_al
@@ -33,13 +33,13 @@ mv Out-with-the-Old-and-in-with-the-Novel/NER_Experiments/New/*.txt /mnt/data/de
 mv Out-with-the-Old-and-in-with-the-Novel/NER_Experiments/Old/*.txt /mnt/data/dekker_et_al/dekker_et_al_original/
 rm -rf Out-with-the-Old-and-in-with-the-Novel
 mkdir /mnt/data/gold_standard/dekker_et_al
-echo "Converting format to fit rest"
+echo -e "\e[30;48;5;45m Converting format to fit rest \e[0m"
 python3 /mnt/Git/scripts/dekkeretal_gs_extraction.py
 
 cd /mnt
 # BOOK NLP
 # clone repository
-echo "Cloning BookNLP" # last commit https://github.com/dbamman/book-nlp/tree/f58fbdbb018ba8bf2d836b764d0426afa0f7bc8c
+echo -e "\e[30;48;5;45m Cloning BookNLP \e[0m" # last commit https://github.com/dbamman/book-nlp/tree/f58fbdbb018ba8bf2d836b764d0426afa0f7bc8c
 git clone https://github.com/dbamman/book-nlp.git
 cd book-nlp
 git reset --hard f58fbdbb018ba8bf2d836b764d0426afa0f7bc8c
@@ -47,7 +47,7 @@ git reset --hard f58fbdbb018ba8bf2d836b764d0426afa0f7bc8c
 cd /mnt
 # install dependencies 
 # Download and unzip http://nlp.stanford.edu/software/stanford-corenlp-4.1.0.zip
-echo "Getting dependencies"
+echo -e "\e[30;48;5;45m Getting dependencies \e[0m"
 wget http://nlp.stanford.edu/software/stanford-corenlp-4.1.0.zip
 unzip stanford-corenlp-4.1.0.zip
 rm stanford-corenlp-4.1.0.zip
