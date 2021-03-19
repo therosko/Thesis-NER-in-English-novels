@@ -21,6 +21,7 @@ import csv
 import sys
 # import own script
 from modules.hyphens import *
+from modules.calculate_metrics import *
 
 #### book example Evelina
 #booknlp_filepath = "/mnt/book-nlp/data/tokens/evelina.tokens"
