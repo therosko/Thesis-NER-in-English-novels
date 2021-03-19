@@ -24,13 +24,15 @@ cd /mnt/data
 echo "Cloning Dekker et al. (raw and annotated dataset collection)"
 git clone https://github.com/Niels-Dekker/Out-with-the-Old-and-in-with-the-Novel.git
 # move relevant (raw and annotated) files and clean up
-mkdir /mnt/data/gold_standard/dekker_et_al
-mv Out-with-the-Old-and-in-with-the-Novel/NER_Experiments/New/*.gs /mnt/data/gold_standard/dekker_et_al/
-mv Out-with-the-Old-and-in-with-the-Novel/NER_Experiments/Old/*.gs /mnt/data/gold_standard/dekker_et_al/
-mkdir /mnt/data/dekker_et_al_original
-mv Out-with-the-Old-and-in-with-the-Novel/NER_Experiments/New/*.txt /mnt/data/dekker_et_al_original/
-mv Out-with-the-Old-and-in-with-the-Novel/NER_Experiments/Old/*.txt /mnt/data/dekker_et_al_original/
+mkdir /mnt/data/dekker_et_al
+mkdir /mnt/data/dekker_et_al/dekker_et_al_annotated
+mv Out-with-the-Old-and-in-with-the-Novel/NER_Experiments/New/*.gs /mnt/data/dekker_et_al/dekker_et_al_annotated/
+mv Out-with-the-Old-and-in-with-the-Novel/NER_Experiments/Old/*.gs /mnt/data/dekker_et_al/dekker_et_al_annotated/
+mkdir /mnt/data/dekker_et_al/dekker_et_al_original
+mv Out-with-the-Old-and-in-with-the-Novel/NER_Experiments/New/*.txt /mnt/data/dekker_et_al/dekker_et_al_original/
+mv Out-with-the-Old-and-in-with-the-Novel/NER_Experiments/Old/*.txt /mnt/data/dekker_et_al/dekker_et_al_original/
 rm -rf Out-with-the-Old-and-in-with-the-Novel
+mkdir /mnt/data/gold_standard/dekker_et_al
 echo "Converting format to fit rest"
 python3 /mnt/Git/scripts/dekkeretal_gs_extraction.py
 
