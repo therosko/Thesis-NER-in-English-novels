@@ -20,6 +20,11 @@ for filename in /mnt/data/litbank/original/*.txt; do
 done
 END
 
+# Fix inconsistencies between LitBank and BookNLP output tokenizes files 
+# CAUTION: run only once! (otherwise overwriting wrong values)
+#todo outcomment before final puch
+#python3 /mnt/Git/scripts/litbank_fix_inconsistency_booknlp_tokens.py
+
 #mkdir /mnt/Git/results/litbank
 # create empty csv with header for the evaluation results
 echo "book_title, precision_booknlp, recall_booknlp, f1_booknlp" >> /mnt/Git/results/litbank/booknlp_litbank_evaluation.csv
