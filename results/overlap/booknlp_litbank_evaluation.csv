@@ -1,13 +1,13 @@
 book_title, precision_booknlp, recall_booknlp, f1_booknlp
-AliceInWonderland,0.8,0.5405,0.3226
+AliceInWonderland,0.8333,0.5405,0.3279
 DavidCopperfield,0.5,0.1912,0.1383
-Dracula,0.5455,0.1429,0.1132
-Emma,0.6269,0.42,0.2515
+Dracula,0.6,0.1429,0.1154
+Emma,0.6212,0.41,0.247
 Frankenstein,0.875,0.0946,0.0854
-HuckleberryFinn,0.7576,0.4386,0.2778
+HuckleberryFinn,0.7333,0.386,0.2529
 MobyDick,1.0,0.0667,0.0625
 OliverTwist,0.8,0.15,0.1263
-PrideAndPrejudice,0.5926,0.4404,0.2526
+PrideAndPrejudice,0.5897,0.4299,0.2486
 TheCallOfTheWild,0.8636,0.1792,0.1484
-Ulysses,0.931,0.5243,0.3354
-VanityFair,0.5577,0.3973,0.232
+Ulysses,0.9636,0.5146,0.3354
+VanityFair,0.56,0.3836,0.2276
