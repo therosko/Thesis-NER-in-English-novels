@@ -67,22 +67,7 @@ gs_d = pd.read_csv(dekker_filepath, sep=' ', quoting=csv.QUOTE_NONE, usecols=[0,
 gs_d = correct_hyphened(gs_d)
 
 gs_d.loc[~gs_d["gs"].isin(['I-PERSON']), "gs"] = "O"
-'''
-#Note that both files contain LRB, RRB, LSB, RSB
 
-# compare if the output file and the gold standard are the same
-try:
-    for index, word, ner in current_file.itertuples(index=True):
-        if word != gs_d["original_word"].loc[index]:
-            print("Position ", index, " '", word, "' in current is not the same as '", gs_d["original_word"].loc[index], "'in gs")
-            break
-#Note: some original texts are longer than the annotated files, we stop the comparisson at that length
-except KeyError:
-    print("Reached end of annotated file. Cropped currect_file.")
-    print("Last word ", word, " in line ", index)
-    current_file = current_file.truncate(after=index-1)
-    pass
-'''
 
 # compare if the output file and the gold standard are the same
 try:
