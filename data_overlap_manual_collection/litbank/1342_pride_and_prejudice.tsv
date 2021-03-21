@@ -52,7 +52,7 @@ daughters	I-PER
 My	B-PER
 dear	I-PER
 Mr.	B-PER
-Bennet	O
+Bennet	I-PER
 ,	O
 ”	O
 said	O
@@ -77,7 +77,7 @@ last	O
 ?	O
 ”	O
 Mr.	B-PER
-Bennet	O
+Bennet	I-PER
 replied	O
 that	O
 he	O
@@ -96,7 +96,7 @@ she	O
 “	O
 for	O
 Mrs.	B-PER
-Long	O
+Long	I-PER
 has	O
 just	O
 been	O
@@ -112,7 +112,7 @@ it	O
 .	O
 ”	O
 Mr.	B-PER
-Bennet	O
+Bennet	I-PER
 made	O
 no	O
 answer	O
@@ -170,7 +170,7 @@ must	O
 know	O
 ,	O
 Mrs.	B-PER
-Long	O
+Long	I-PER
 says	O
 that	O
 Netherfield	B-FAC
@@ -218,7 +218,7 @@ he	O
 agreed	O
 with	O
 Mr.	B-PER
-Morris	O
+Morris	I-PER
 immediately	O
 ;	O
 that	O
@@ -318,7 +318,7 @@ them	O
 My	B-PER
 dear	I-PER
 Mr.	B-PER
-Bennet	O
+Bennet	I-PER
 ,	O
 ”	O
 replied	O
@@ -442,7 +442,7 @@ of	O
 them	O
 ,	O
 Mr.	B-PER
-Bingley	O
+Bingley	I-PER
 may	O
 like	O
 you	O
@@ -535,7 +535,7 @@ go	O
 and	O
 see	O
 Mr.	B-PER
-Bingley	O
+Bingley	I-PER
 when	O
 he	O
 comes	O
@@ -578,10 +578,10 @@ of	O
 them	O
 .	O
 Sir	B-PER
-William	O
+William	I-PER
 and	O
 Lady	B-PER
-Lucas	O
+Lucas	I-PER
 are	O
 determined	O
 to	O
@@ -640,7 +640,7 @@ I	O
 dare	O
 say	O
 Mr.	B-PER
-Bingley	O
+Bingley	I-PER
 will	O
 be	O
 very	O
@@ -783,7 +783,7 @@ sisters	I-PER
 ”	O
 “	O
 Mr.	B-PER
-Bennet	O
+Bennet	I-PER
 ,	O
 how	O
 _	O
@@ -940,7 +940,7 @@ all	O
 .	O
 ”	O
 Mr.	B-PER
-Bennet	O
+Bennet	I-PER
 was	O
 so	O
 odd	O
@@ -1036,7 +1036,7 @@ news	O
 Chapter	O
 2	O
 Mr.	B-PER
-Bennet	O
+Bennet	I-PER
 was	O
 among	O
 the	O
@@ -1047,7 +1047,7 @@ who	O
 waited	O
 on	O
 Mr.	B-PER
-Bingley	O
+Bingley	I-PER
 .	O
 He	O
 had	O
@@ -1116,7 +1116,7 @@ with	O
 I	O
 hope	O
 Mr.	B-PER
-Bingley	O
+Bingley	I-PER
 will	O
 like	O
 it	O
@@ -1137,7 +1137,7 @@ _	O
 what	O
 _	O
 Mr.	B-PER
-Bingley	O
+Bingley	I-PER
 likes	O
 ,	O
 ”	O
@@ -1179,7 +1179,7 @@ assemblies	O
 and	O
 that	O
 Mrs.	B-PER
-Long	O
+Long	I-PER
 promised	O
 to	O
 introduce	O
@@ -1192,7 +1192,7 @@ do	O
 not	O
 believe	O
 Mrs.	B-PER
-Long	O
+Long	I-PER
 will	O
 do	O
 any	O
@@ -1233,7 +1233,7 @@ I	O
 ”	O
 said	O
 Mr.	B-PER
-Bennet	O
+Bennet	I-PER
 ;	O
 “	O
 and	O
@@ -1254,7 +1254,7 @@ you	O
 .	O
 ”	O
 Mrs.	B-PER
-Bennet	O
+Bennet	I-PER
 deigned	O
 not	O
 to	O
@@ -1375,7 +1375,7 @@ mother	I-PER
 “	O
 and	O
 Mrs.	B-PER
-Long	O
+Long	I-PER
 does	O
 not	O
 come	O
@@ -1423,7 +1423,7 @@ friend	I-PER
 and	O
 introduce	O
 Mr.	B-PER
-Bingley	O
+Bingley	I-PER
 to	O
 _	O
 her	O
@@ -1434,7 +1434,7 @@ _	O
 Impossible	O
 ,	O
 Mr.	B-PER
-Bennet	O
+Bennet	I-PER
 ,	O
 impossible	O
 ,	O
@@ -1503,7 +1503,7 @@ after	O
 all	O
 ,	O
 Mrs.	B-PER
-Long	O
+Long	I-PER
 and	O
 her	B-PER
 neices	I-PER
@@ -1548,7 +1548,7 @@ their	B-PER
 father	I-PER
 .	O
 Mrs.	B-PER
-Bennet	O
+Bennet	I-PER
 said	O
 only	O
 ,	O
@@ -1663,7 +1663,7 @@ us	O
 return	O
 to	O
 Mr.	B-PER
-Bingley	O
+Bingley	I-PER
 .	O
 ”	O
 “	O
@@ -1672,7 +1672,7 @@ am	O
 sick	O
 of	O
 Mr.	B-PER
-Bingley	O
+Bingley	I-PER
 ,	O
 ”	O
 cried	O
@@ -1753,7 +1753,7 @@ wished	O
 that	O
 of	O
 Mrs.	B-PER
-Bennet	O
+Bennet	I-PER
 perhaps	O
 surpassing	O
 the	B-PER
@@ -1796,7 +1796,7 @@ you	O
 my	B-PER
 dear	I-PER
 Mr.	B-PER
-Bennet	O
+Bennet	I-PER
 !	O
 But	O
 I	O
@@ -1875,7 +1875,7 @@ choose	O
 ”	O
 said	O
 Mr.	B-PER
-Bennet	O
+Bennet	I-PER
 ;	O
 and	O
 ,	O
@@ -1992,7 +1992,7 @@ I	O
 dare	O
 say	O
 Mr.	B-PER
-Bingley	O
+Bingley	I-PER
 will	O
 dance	O
 with	O

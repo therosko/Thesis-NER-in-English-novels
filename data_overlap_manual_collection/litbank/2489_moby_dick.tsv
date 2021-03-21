@@ -927,11 +927,11 @@ it	O
 ?	O
 Why	O
 did	O
-the	O
-poor	O
-poet	O
-of	O
-Tennessee	B-GPE
+the	B-PER
+poor	I-PER
+poet	I-PER
+of	I-PER
+Tennessee	I-PER
 ,	O
 upon	O
 suddenly	O
