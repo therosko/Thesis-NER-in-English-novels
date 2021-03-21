@@ -25,7 +25,7 @@ for filename in os.listdir(path_to_annotated_files):
         # create an empty dataframe
         current_file = pd.DataFrame(columns = ['original_word', 'gs']) 
         # move all "widest range entries" (no matter the layer)
-        for index in range(0,(len(current_original)-1)):
+        for index in range(0,len(current_original)):
             if "I-PER" in current_original.iloc[index].values:
                 new_line = {'original_word': current_original.iloc[index][0], 'gs': "I-PER"}
                 current_file = current_file.append(new_line, ignore_index=True)
