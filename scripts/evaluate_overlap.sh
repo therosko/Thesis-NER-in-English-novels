@@ -37,8 +37,8 @@ echo "book_title, index_list, word_list" >> /mnt/Git/results/overlap/booknlp_dek
 echo "book_title, index_list, word_list" >> /mnt/Git/results/overlap/booknlp_dekkeretal_false_negative.csv
 
 echo "book_title, precision_booknlp, recall_booknlp, f1_booknlp" >> /mnt/Git/results/overlap/booknlp_litbank_evaluation.csv
-echo "book_title, index_list, word_list" >> mnt/Git/results/overlap/booknlp_litbank_false_positive.csv
-echo "book_title, index_list, word_list" >> mnt/Git/results/overlap/booknlp_litbank_false_negative.csv
+echo "book_title, index_list, word_list" >> /mnt/Git/results/overlap/booknlp_litbank_false_positive.csv
+echo "book_title, index_list, word_list" >> /mnt/Git/results/overlap/booknlp_litbank_false_negative.csv
 
 echo -e "\e[30;48;5;45m INFO: Comparing BookNLP overlap annotation to Litbank gold standard and to Dekker et al. gold standard \e[0m"
 for filename in /mnt/book-nlp/data/tokens/overlap/*; do
