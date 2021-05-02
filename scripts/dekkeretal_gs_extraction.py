@@ -22,12 +22,6 @@ for filename in os.listdir(path_to_annotated_files):
         # files have different levels and therefore a different number of columns. we only take and name the first two columns
         current_file = pd.read_csv(filepath, sep=' ', quoting=csv.QUOTE_NONE, usecols=[0,1], names=["original_word", "gs"]) 
 
-        # remove lines where the word marks beginning or end of line (i.e. LRB, RRB, LSB, RSB) We ignore them, because they exists in the original texts provided by Dekker et al. as well
-        #current_file[~current_file.original_word.str.contains("-LRB-")]
-        #current_file[~current_file.original_word.str.contains("-RRB-")]
-        #current_file[~current_file.original_word.str.contains("-LSB-")]
-        #current_file[~current_file.original_word.str.contains("-RSB-")]
-
         # The golden standard treats hyphened compound words such as WAISTCOAT-POCKET as one word instead of three separate. We find and split those for the further analysis
         current_file = correct_hyphened(current_file)
         # patch encoding issues
