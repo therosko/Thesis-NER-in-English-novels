@@ -1,5 +1,5 @@
 #####################################################################################################################
-# This script reads in the gold standard (output of litbank_gs_extraction.py) and compares it to
+# This script reads in the entire LitBank gold standard (output of litbank_gs_extraction.py) and compares it to
 # the .token files created by booknlp
 #
 # Output:
@@ -147,11 +147,11 @@ for index, original_word_x, booknlp, original_word_y, gs in merged_df.itertuples
         elif booknlp == 'O' and false_negative_booknlp == False and false_positive_booknlp == False:
             continue
         else:
-            # add error handling in case of a mistake
-            print ("1. Semantical mistake in analysing line ", index)
+            # add error detection in case of a mistake
+            print ("Semantical mistake in analysing line ", index)
             break
     else:
-        # add error handling in case of a mistake
+        # add error detection in case of a mistake
         print ("Semantical mistake in analysing line ", index)
         break
 
