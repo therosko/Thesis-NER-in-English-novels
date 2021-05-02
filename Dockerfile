@@ -107,6 +107,9 @@ ENV PATH=${PATH}:${JAVA_HOME}/bin
 RUN mvn --version && \
     python3 -V && \
     pip3 --version
+    #Apache Maven 3.6.3; Java version: 1.8.0_275
+    #python3 version 3.6.9
+    #pip3 version 21.0.1
 
 #########################
 #### ---- Entry ---- ####
