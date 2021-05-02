@@ -131,11 +131,11 @@ for index, original_word_x, booknlp, original_word_y, gs in merged_df.itertuples
         elif booknlp == 'O' and false_negative_booknlp == False and false_positive_booknlp == False:
             continue
         else:
-            # add error handling in case of a mistake
-            print ("1. Semantical mistake in analysing line ", index)
+            # add error detection in case of a mistake
+            print ("Semantical mistake in analysing line ", index)
             break
     else:
-        # add error handling in case of a mistake
+        # add error detection in case of a mistake
         print ("Semantical mistake in analysing line ", index)
         break
 
