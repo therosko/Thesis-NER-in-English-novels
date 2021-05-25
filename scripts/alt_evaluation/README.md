@@ -1,0 +1,1 @@
+This folder contains alternative evaluation scripts written for the purpose of the thesis. For the evaluation scripts used for the evaluation section of the thesis refer to the folder `conll_evaluation`.
