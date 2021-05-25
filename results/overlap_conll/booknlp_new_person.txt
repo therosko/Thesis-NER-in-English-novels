@@ -1,0 +1,48 @@
+/mnt/Git/scripts/conll_evaluation/data_conll_format/booknlp_new_person/AliceInWonderland.tsv
+        & Precision &  Recall  & F$_{\beta=1} \\\hline
+PER     &  100.00\% &  80.65\% &  89.29 \\\hline
+Overall &  100.00\% &  80.65\% &  89.29 \\\hline
+/mnt/Git/scripts/conll_evaluation/data_conll_format/booknlp_new_person/DavidCopperfield.tsv
+        & Precision &  Recall  & F$_{\beta=1} \\\hline
+PER     &    0.00\% &   0.00\% &   0.00 \\\hline
+Overall &    0.00\% &   0.00\% &   0.00 \\\hline
+/mnt/Git/scripts/conll_evaluation/data_conll_format/booknlp_new_person/Dracula.tsv
+        & Precision &  Recall  & F$_{\beta=1} \\\hline
+PER     &   45.45\% &  35.71\% &  40.00 \\\hline
+Overall &   45.45\% &  35.71\% &  40.00 \\\hline
+/mnt/Git/scripts/conll_evaluation/data_conll_format/booknlp_new_person/Emma.tsv
+        & Precision &  Recall  & F$_{\beta=1} \\\hline
+PER     &   40.00\% &  36.73\% &  38.30 \\\hline
+Overall &   40.00\% &  36.73\% &  38.30 \\\hline
+/mnt/Git/scripts/conll_evaluation/data_conll_format/booknlp_new_person/Frankenstein.tsv
+        & Precision &  Recall  & F$_{\beta=1} \\\hline
+PER     &   77.78\% &  70.00\% &  73.68 \\\hline
+Overall &   77.78\% &  70.00\% &  73.68 \\\hline
+/mnt/Git/scripts/conll_evaluation/data_conll_format/booknlp_new_person/HuckleberryFinn.tsv
+        & Precision &  Recall  & F$_{\beta=1} \\\hline
+PER     &   60.87\% &  50.00\% &  54.90 \\\hline
+Overall &   60.87\% &  50.00\% &  54.90 \\\hline
+/mnt/Git/scripts/conll_evaluation/data_conll_format/booknlp_new_person/MobyDick.tsv
+        & Precision &  Recall  & F$_{\beta=1} \\\hline
+PER     &   71.43\% &  62.50\% &  66.67 \\\hline
+Overall &   71.43\% &  62.50\% &  66.67 \\\hline
+/mnt/Git/scripts/conll_evaluation/data_conll_format/booknlp_new_person/OliverTwist.tsv
+        & Precision &  Recall  & F$_{\beta=1} \\\hline
+PER     &   93.33\% &  87.50\% &  90.32 \\\hline
+Overall &   93.33\% &  87.50\% &  90.32 \\\hline
+/mnt/Git/scripts/conll_evaluation/data_conll_format/booknlp_new_person/PrideAndPrejudice.tsv
+        & Precision &  Recall  & F$_{\beta=1} \\\hline
+PER     &   31.91\% &  31.25\% &  31.58 \\\hline
+Overall &   31.91\% &  31.25\% &  31.58 \\\hline
+/mnt/Git/scripts/conll_evaluation/data_conll_format/booknlp_new_person/TheCallOfTheWild.tsv
+        & Precision &  Recall  & F$_{\beta=1} \\\hline
+PER     &   84.21\% &  37.21\% &  51.61 \\\hline
+Overall &   84.21\% &  37.21\% &  51.61 \\\hline
+/mnt/Git/scripts/conll_evaluation/data_conll_format/booknlp_new_person/Ulysses.tsv
+        & Precision &  Recall  & F$_{\beta=1} \\\hline
+PER     &   96.49\% &  94.83\% &  95.65 \\\hline
+Overall &   96.49\% &  94.83\% &  95.65 \\\hline
+/mnt/Git/scripts/conll_evaluation/data_conll_format/booknlp_new_person/VanityFair.tsv
+        & Precision &  Recall  & F$_{\beta=1} \\\hline
+PER     &   22.39\% &  18.99\% &  20.55 \\\hline
+Overall &   22.39\% &  18.99\% &  20.55 \\\hline

@@ -1,0 +1,60 @@
+/mnt/Git/scripts/conll_evaluation/data_conll_format/flair_new_perx/AliceInWonderland.tsv
+        & Precision &  Recall  & F$_{\beta=1} \\\hline
+B-PER   &  100.00\% &  13.40\% &  23.64 \\
+I-PER   &    0.00\% &   0.00\% &   0.00 \\\hline
+Overall &  100.00\% &  11.30\% &  20.31 \\\hline
+/mnt/Git/scripts/conll_evaluation/data_conll_format/flair_new_perx/DavidCopperfield.tsv
+        & Precision &  Recall  & F$_{\beta=1} \\\hline
+B-PER   &    6.25\% &   0.49\% &   0.90 \\
+I-PER   &    6.67\% &   0.45\% &   0.85 \\\hline
+Overall &    6.45\% &   0.47\% &   0.88 \\\hline
+/mnt/Git/scripts/conll_evaluation/data_conll_format/flair_new_perx/Dracula.tsv
+        & Precision &  Recall  & F$_{\beta=1} \\\hline
+B-PER   &   57.14\% &   1.72\% &   3.35 \\
+I-PER   &  100.00\% &   0.57\% &   1.14 \\\hline
+Overall &   62.50\% &   1.23\% &   2.42 \\\hline
+/mnt/Git/scripts/conll_evaluation/data_conll_format/flair_new_perx/Emma.tsv
+        & Precision &  Recall  & F$_{\beta=1} \\\hline
+B-PER   &   68.89\% &  12.02\% &  20.46 \\
+I-PER   &    7.69\% &   0.58\% &   1.08 \\\hline
+Overall &   55.17\% &   7.42\% &  13.09 \\\hline
+/mnt/Git/scripts/conll_evaluation/data_conll_format/flair_new_perx/Frankenstein.tsv
+        & Precision &  Recall  & F$_{\beta=1} \\\hline
+B-PER   &   63.64\% &   2.47\% &   4.76 \\
+I-PER   &   50.00\% &   1.13\% &   2.21 \\\hline
+Overall &   60.00\% &   1.96\% &   3.79 \\\hline
+/mnt/Git/scripts/conll_evaluation/data_conll_format/flair_new_perx/HuckleberryFinn.tsv
+        & Precision &  Recall  & F$_{\beta=1} \\\hline
+B-PER   &   75.00\% &   7.92\% &  14.33 \\
+I-PER   &   90.00\% &  15.52\% &  26.47 \\\hline
+Overall &   78.95\% &   9.29\% &  16.62 \\\hline
+/mnt/Git/scripts/conll_evaluation/data_conll_format/flair_new_perx/MobyDick.tsv
+        & Precision &  Recall  & F$_{\beta=1} \\\hline
+B-PER   &   66.67\% &   2.84\% &   5.45 \\
+I-PER   &  100.00\% &   0.66\% &   1.31 \\\hline
+Overall &   70.00\% &   1.93\% &   3.75 \\\hline
+/mnt/Git/scripts/conll_evaluation/data_conll_format/flair_new_perx/OliverTwist.tsv
+        & Precision &  Recall  & F$_{\beta=1} \\\hline
+B-PER   &   86.67\% &   6.84\% &  12.68 \\
+I-PER   &   83.33\% &   2.06\% &   4.02 \\\hline
+Overall &   85.71\% &   4.16\% &   7.93 \\\hline
+/mnt/Git/scripts/conll_evaluation/data_conll_format/flair_new_perx/PrideAndPrejudice.tsv
+        & Precision &  Recall  & F$_{\beta=1} \\\hline
+B-PER   &   88.24\% &  14.71\% &  25.21 \\
+I-PER   &    0.00\% &   0.00\% &   0.00 \\\hline
+Overall &   88.24\% &  10.44\% &  18.67 \\\hline
+/mnt/Git/scripts/conll_evaluation/data_conll_format/flair_new_perx/TheCallOfTheWild.tsv
+        & Precision &  Recall  & F$_{\beta=1} \\\hline
+B-PER   &   91.18\% &  13.48\% &  23.48 \\
+I-PER   &  100.00\% &   0.76\% &   1.52 \\\hline
+Overall &   91.43\% &   8.86\% &  16.16 \\\hline
+/mnt/Git/scripts/conll_evaluation/data_conll_format/flair_new_perx/Ulysses.tsv
+        & Precision &  Recall  & F$_{\beta=1} \\\hline
+B-PER   &   90.48\% &  19.59\% &  32.20 \\
+I-PER   &  100.00\% &  17.12\% &  29.23 \\\hline
+Overall &   92.68\% &  18.91\% &  31.40 \\\hline
+/mnt/Git/scripts/conll_evaluation/data_conll_format/flair_new_perx/VanityFair.tsv
+        & Precision &  Recall  & F$_{\beta=1} \\\hline
+B-PER   &   41.94\% &  17.65\% &  24.84 \\
+I-PER   &   26.67\% &   2.97\% &   5.35 \\\hline
+Overall &   38.21\% &   9.59\% &  15.33 \\\hline
