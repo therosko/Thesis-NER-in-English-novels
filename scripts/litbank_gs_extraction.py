@@ -9,7 +9,7 @@ import os
 import csv
 import pandas as pd
 # import own script
-from modules.hyphens import *
+from hyphens import *
 
 path_to_annotated_files = "/mnt/data/litbank/entities/tsv"
 gs_output_dir = "/mnt/data/gold_standard/litbank"
