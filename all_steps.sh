@@ -9,10 +9,13 @@ scripts/get_setup.sh
 
 #mkdir /mnt/Git/results
 # run all LitBank books over BookNLP
-scripts/evaluate_booknlp.sh
+scripts/initial_evaluation/evaluate_booknlp.sh
 
 # run all Dekker et al. over BookNLP
-scripts/evaluate_dekkeretal.sh
+scripts/initial_evaluation/evaluate_dekkeretal.sh
 
-# run all overlapping between Dekker et al. and LitBank over BookNLP
-scripts/evaluate_overlap.sh
+# with own script evaluate the overlaping sections of LitBank, Dekker et al., and new gold standard using BookNLP and Flair
+scripts/alt_evaluation/evaluate_overlap.sh
+
+# with CoNLL script evaluate the overlaping sections of LitBank, Dekker et al., and new gold standard using BookNLP and Flair
+scripts/conll_evaluation/evaluate_overlap_conll.sh
