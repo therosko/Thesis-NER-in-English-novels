@@ -54,4 +54,15 @@ rm stanford-corenlp-4.1.0.zip
 # copy stanford-corenlp-4.1.0/stanford-corenlp-4.1.0-models.jar to the lib/ folder in the current working directory
 cp stanford-corenlp-4.1.0/stanford-corenlp-4.1.0-models.jar book-nlp/lib/
 
+echo -e "\e[30;48;5;45m Getting doccano-transformer for annotations \e[0m"
+#TODO FIX this to your own fixed fork
+mkdir /mnt/Git/scripts/temp
+cd /mnt/Git/scripts/temp
+git clone https://github.com/doccano/doccano-transformer.git .
+mkdir /mnt/Git/scripts/doccano_transformer
+mv /mnt/Git/scripts/temp/doccano_transformer/* /mnt/Git/scripts/doccano_transformer/
+rm -rf /mnt/Git/scripts/temp/
 
+#echo -e "\e[30;48;5;45m Extracting new annotations \e[0m"
+#python3 /mnt/Git/scripts/extract_new_annotation.py
+# second layer from comments is added manually #TODO
