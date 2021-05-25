@@ -30,7 +30,7 @@ def get_metrics(merged_df, list_correct, list_false_positives, list_false_negati
             word_list.append(merged_df.iloc[index]['original_word_x'])
         return word_list
 
-    #writin false positives and false negatives to csv
+    #write false positives and false negatives to csv
     with open(path_fp,'a') as f:
         for entity in list_false_positives:
             incorrect = str(passed_variable) + "," + str(entity) + "," + str(get_word(entity)) + "\n"
