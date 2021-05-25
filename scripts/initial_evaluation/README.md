@@ -1,0 +1,1 @@
+This folder contains the scripts for evaluating BookNLP using the entire datasets from Dekker et al. and LitBank (not only overlapping section).
