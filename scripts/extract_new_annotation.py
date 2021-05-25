@@ -1,3 +1,8 @@
+##############################################################################################################
+# NB! Manual adaptations were necessary due to the comments containing the second layer of entities
+# Further parsing errors have been manually fixed! => Most reliably use files in annotation/gs folder
+# Issue: The doccano_transformer does not output all tags done by the annotators. Unknown reason.
+##############################################################################################################
 import json
 import pandas as pd
 import os
@@ -5,8 +10,8 @@ import csv
 import nltk
 nltk.download('punkt')
 # import own script
-from modules.hyphens import *
-from modules.fix_doccano_output import *
+from hyphens import *
+from fix_doccano_output import *
 # import adapted version of doccano_transformer
 from doccano_transformer.datasets import NERDataset
 from doccano_transformer.utils import read_jsonl
@@ -127,5 +132,3 @@ for file in os.listdir(directory):
         df_an2.to_csv(outpath+'_2.tsv', sep='\t', index=False, encoding='utf-8', quoting=csv.QUOTE_NONE)
     else:
         continue
-
-

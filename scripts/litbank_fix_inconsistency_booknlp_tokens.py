@@ -8,7 +8,7 @@
 import os
 import csv
 import pandas as pd
-from modules.hyphens import *
+from hyphens import *
 
 # 110_tess_of_the_durbervilles_a_pure_woman_brat.tsv
 current_file = pd.read_csv("/mnt/data/gold_standard/litbank/110_tess_of_the_durbervilles_a_pure_woman_brat.tsv", sep='\t', quoting=csv.QUOTE_NONE) 

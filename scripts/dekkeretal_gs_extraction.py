@@ -9,8 +9,8 @@ import os
 import csv
 import pandas as pd
 # import own script
-from modules.hyphens import *
-from modules.patch_encoding_errors import *
+from hyphens import *
+from patch_encoding_errors import *
 
 path_to_annotated_files = "/mnt/data/dekker_et_al/dekker_et_al_annotated"
 gs_output_dir = "/mnt/data/gold_standard/dekker_et_al"

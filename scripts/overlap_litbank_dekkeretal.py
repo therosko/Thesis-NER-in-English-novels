@@ -1,8 +1,10 @@
-#######################################################################
+###################################################################################
 # IMPORTANT
 # This file contains unfinished code nad pseudocode to be implemented. 
+# Issue: The formats of the raw texts used in LitBank and Dekker et al.
+# are not the same. There are differences such as punctuation, spelling, etc.
 # The currect extraction of overlapping was done manually.
-#######################################################################
+###################################################################################
 
 #################################
 # extract gold standard
