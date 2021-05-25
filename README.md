@@ -2,10 +2,6 @@
 
 Note to self: run with `docker container run -v /home/ivanova/NER/v_mnt:/mnt -it ner /bin/bash`
 
-## Status Updates
-* flattened hyphened words in gold standard (uses old version of Stanford CoreNLP)
-* derive differences between booknlp and gold standard, extract false positives and false negatives
-
 --
 * use data from [Litbank](https://github.com/dbamman/litbank)
 
