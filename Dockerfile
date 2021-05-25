@@ -111,6 +111,9 @@ RUN mvn --version && \
     #python3 version 3.6.9
     #pip3 version 21.0.1
 
+# Add python modules to python path
+ENV PYTHONPATH "/mnt/Git/scripts/modules"
+
 #########################
 #### ---- Entry ---- ####
 #########################
