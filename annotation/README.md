@@ -4,9 +4,11 @@ The raw texts used for the annotation can be found in `data_overlap_manual_colle
 
 We let two people annotate all 12 novels and agree on a common version. We ensured that there was no communication between the two annotators during the initial annotation process. 
 
-The files downloaded from Doccano after the final annotation can be found in the folder `doccano_files`. 
+The files downloaded from Doccano after the final annotation can be found in the folder `original_data`. 
 
-The gold standard TSV files can be found in the folder `new_gold_standard`. They follow the simply structure of one entity and entity type per row.
+The annotated datasets TSV files can be found in the folder `gs`. They follow the simply structure of one entity and entity type per row. 
+
+CAUTION! Those annotated datasets are not to be used for the training or evaluation of tools. Possible uses are for researching the effect of different annotation guidelines on tool's perfomancy (as done by this master thesis) or the effect of using different prefix formats, etc.
 
 -----------
 
