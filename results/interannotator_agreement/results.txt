@@ -1,0 +1,13 @@
+Novel & PERSON label & PERX label \\ 
+PrideAndPrejudice & 0.98 & 0.90 \\ 
+Frankenstein & 1.00 & 0.76 \\ 
+VanityFair & 0.90 & 0.74 \\ 
+Emma & 0.97 & 0.77 \\ 
+DavidCopperfield & 1.00 & 0.69 \\ 
+HuckleberryFinn & 0.97 & 0.85 \\ 
+Dracula & 0.90 & 0.74 \\ 
+TheCallOfTheWild & 0.92 & 0.70 \\ 
+OliverTwist & 1.00 & 0.76 \\ 
+AliceInWonderland & 0.88 & 0.90 \\ 
+MobyDick & 0.95 & 0.78 \\ 
+Ulysses & 0.96 & 0.79 \\ 
