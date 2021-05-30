@@ -19,3 +19,7 @@ scripts/alt_evaluation/evaluate_overlap.sh
 
 # with CoNLL script evaluate the overlaping sections of LitBank, Dekker et al., and new gold standard using BookNLP and Flair
 scripts/conll_evaluation/evaluate_overlap_conll.sh
+
+# calculate interannotator agreement
+mkdir /mnt/Git/results/interannotator_agreement
+python3 /mnt/Git/scripts/interannotator_agreement.py > /mnt/Git/results/interannotator_agreement/results.txt
