@@ -8,7 +8,7 @@ The files downloaded from Doccano after the final annotation can be found in the
 
 The annotated datasets TSV files can be found in the folder `gs`. They follow the simply structure of one entity and entity type per row. 
 
-CAUTION! Those annotated datasets are not to be used for the training or evaluation of tools. Possible uses are for researching the effect of different annotation guidelines on tool's perfomancy (as done by this master thesis) or the effect of using different prefix formats, etc.
+*CAUTION! Those annotated datasets are not to be used for the training or evaluation of tools. Possible uses are for researching the effect of different annotation guidelines on tool's perfomancy (as done by this master thesis) or the effect of using different prefix formats, etc.*
 
 -----------
 
