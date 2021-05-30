@@ -112,7 +112,7 @@ RUN mvn --version && \
     #pip3 version 21.0.1
 
 # Add python modules to python path
-ENV PYTHONPATH "/mnt/Git/scripts/modules"
+ENV PYTHONPATH "/mnt/Git/scripts/modules:/mnt/Git/scripts/disagree"
 
 #########################
 #### ---- Entry ---- ####
